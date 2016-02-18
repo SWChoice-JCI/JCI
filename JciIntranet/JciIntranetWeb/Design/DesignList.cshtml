@@ -1,0 +1,67 @@
+﻿@{
+    Page.Title = "Design List";
+    Layout = "~/_SiteLayout.cshtml";
+    var SearchKeyword = "-NONE-";
+    if (Request["txtSearch"] != null)
+    {
+        SearchKeyword = Request["txtSearch"];
+    }
+        
+    var jcidb = Database.Open("JCIDB");
+
+    //var DesignListSql = "Select * From pd.Design";
+    var DesignListSql = "Select * From op.rtnDesignSearchList(@0)";
+    var rs = jcidb.Query(DesignListSql,SearchKeyword);
+    var grid = new WebGrid(rs, rowsPerPage: 20);
+}
+@section Scripts {
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+}
+
+<div id="page-header">
+    <span class="page-title">Design List</span>
+    
+    <form>
+        <span class="pull-right">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" id="txtSearch" name="txtSearch" placeholder="type search keyword" />
+            <button type="submit" class="btn-secondary">&nbsp;Search&nbsp;</button>
+        </span>
+    </form>
+
+    
+</div>
+
+<div id="grid">
+    @grid.GetHtml(tableStyle: "table table-striped table-hover",
+    headerStyle:"webgrid-header",
+        footerStyle:"Pagination Pagination-sm paser",
+        alternatingRowStyle:"alternate",
+        columns:grid.Columns(
+            grid.Column("DesignID","Design ID"),
+            grid.Column("CustName","Customer"),
+            grid.Column("Division","Division"),
+            grid.Column("CustPO","Customer PO"),
+            grid.Column("CustStyleNo","Customr Sytle No."),
+            @*grid.Column("DueDate","Due Date",format: @<text>@item.DueDate.ToString("M/dd/yy")</text>),
+            grid.Column("DateCompleted","Completed Date",format: @<text>@item.DateCompleted.ToString("M/dd/yy")</text>),*@
+            grid.Column("DueDate","Due Date"),
+            grid.Column("DateCompleted","Completed Date"),
+            grid.Column("DesignName", "Design Name"),
+            grid.Column("Description", "Description"),
+            grid.Column("RegisterUserID", "Register"),
+            grid.Column("SalesPersonID", "Sales Person")
+            ), mode: WebGridPagerModes.All
+        )
+    <script type="text/javascript">
+        $(function () {
+            $('tbody tr td:first-child').hover(function () {
+                $(this).toggleClass('clickable');
+            }).on('click', function () {
+                    location.href = '/Design/DesignUpdate?DesignID=' + $(this).text();        
+            });
+        });
+    </script>
+</div>

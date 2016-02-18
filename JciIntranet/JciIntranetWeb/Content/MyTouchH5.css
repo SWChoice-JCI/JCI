@@ -1,0 +1,22 @@
+﻿body { 
+    width:1400px; 
+    margin:20px auto;
+    border-top: solid 0px #000;
+    color: #333;
+    font-size: 1em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+} 
+.container {width:1400px;}
+.content { width:1150px; height:auto; float:left; background-color:rgb(233, 226, 226)} 
+.sidebar {width:200px; height:auto; float:left; margin-left:20px;}  
+.header, .footer { height:auto;  }  
+.clear {clear:both;}
+
+.side-menu-gap{
+    height: 0px;
+    width: 100%;
+    display: block; /* for use on default inline elements like span */
+    margin: 8px;
+    overflow: hidden;
+    /*background-color: #fff;*/
+}

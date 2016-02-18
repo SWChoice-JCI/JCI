@@ -4,15 +4,15 @@
     padding: 0;
 }
 
-body {
+/*body {
     background-color: #fff;
-    border-top: solid 10px #000;
+    border-top: solid 0px #000;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
-}
+}*/
 
 a {
     color: #333;
@@ -95,27 +95,22 @@ h5, h6 {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 1400px;
 }
 
-#body {
-    background-color: #efeeef;
-    clear: both;
-    padding-bottom: 35px;
-}
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
+        /*background: url("../Images/accent.png") no-repeat; half circle image eli-16.1.19 */
         padding-left: 10px;
-        padding-top: 30px;
+        padding-top: 15px;
     }
 
     .featured + .main-content {
-        background: url("../Images/heroAccent.png") no-repeat;
+        /*background: url("../Images/heroAccent.png") no-repeat; half circle image eli-16.1.19*/
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 0px; 
 }
 
 footer {
@@ -142,6 +137,9 @@ footer {
     text-decoration: none;
 }
 
+.site-logo {
+    height:80px;
+}
 
 /* login
 ----------------------------------------------------------*/
@@ -180,8 +178,8 @@ footer {
 /* menu
 ----------------------------------------------------------*/
 ul#menu {
-    font-size: 1.3em;
-    font-weight: 600;
+    font-size: 1.1em;
+    font-weight: 500;
     margin: 0 0 5px;
     padding: 0;
     text-align: right;
@@ -190,7 +188,7 @@ ul#menu {
     ul#menu li {
         display: inline;
         list-style: none;
-        padding-left: 15px;
+        padding-left: 5px;
     }
 
         ul#menu li a {
@@ -205,6 +203,26 @@ ul#menu {
         }
 
 
+/* role title */
+.role-line {
+    background-color: #0072b7;
+    background-image: -ms-linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+    background-image: -o-linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #0072b7), color-stop(1, #a4d4e6));
+    background-image: -webkit-linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+    background-image: linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+
+    padding: 0px 0px 2px 40px;
+    margin-left:110px;
+    margin-top:-45px;
+}
+.role-title {
+    color: #787878;   
+    padding: 0px 0px 2px 10px;
+    margin-left:110px;    
+    margin-top:10px;
+}
+
 /* page elements
 ----------------------------------------------------------*/
 /* featured */
@@ -213,14 +231,14 @@ ul#menu {
 }
 
     .featured .content-wrapper {
-        background-color: #7ac0da;
-        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
-        background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        color: #3e5667;
-        padding: 20px 40px 30px 40px;
+        background-color: #0072b7;
+        background-image: -ms-linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+        background-image: -o-linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #0072b7), color-stop(1, #a4d4e6));
+        background-image: -webkit-linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+        background-image: linear-gradient(left, #0072b7 0%, #a4d4e6 100%);
+        color: #e2e2e2;
+        padding: 3px 3px 5px 40px;
     }
 
         .featured hgroup.title h1, .featured hgroup.title h2 {
@@ -233,7 +251,7 @@ ul#menu {
 
 /* page titles */
 hgroup.title {
-    margin-bottom: 10px;
+    margin:0;
 }
 
 hgroup.title h1, hgroup.title h2 {
@@ -265,18 +283,22 @@ ol.round {
 
         ol.round li.zero {
             background: url("../Images/orderedList0.png") no-repeat;
+            background-size:15px;
         }
 
         ol.round li.one {
             background: url("../Images/orderedList1.png") no-repeat;
+            background-size:15px;
         }
 
         ol.round li.two {
             background: url("../Images/orderedList2.png") no-repeat;
+            background-size:15px;
         }
 
         ol.round li.three {
             background: url("../Images/orderedList3.png") no-repeat;
+            background-size:15px;
         }
 
         ol.round li.four {

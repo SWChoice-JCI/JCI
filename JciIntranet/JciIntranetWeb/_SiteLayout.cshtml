@@ -1,62 +1,190 @@
-﻿<!DOCTYPE html>
+﻿@{  
+    if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        Session["UserID"] = Page.User.Identity.Name;
+    }
+    //else
+    //{
+    //    Response.Redirect("~/LogInRequired.cshtml");
+    //}
+    var UserID = "ShengWang"; //Request.ServerVariables["logon_user"].ToString();
+
+    Session["UserID"] = UserID;
+    
+    var sqldb = Database.Open("JCIDB");
+    var sqlquery = "Select FirstName+' '+LastName as UserName, * From mt.Users where UserID='"+UserID+"'";
+    var row = sqldb.QuerySingle(sqlquery);
+
+    if (row == null)
+    {
+        Response.Redirect("~/Error.cshtml");
+    }
+
+    Session["UserName"] = row.UserName;
+    Session["RoleGroup"] = "";
+    if (row.RoleGroupCode == "AL") { 
+        Session["RoleGroup"] = "Super User";
+    }
+    if (row.RoleGroupCode.Contains("AM"))
+    {
+        Session["RoleGroup"] = Session["RoleGroup"].ToString()+"Account Manager";
+    }
+    if (row.RoleGroupCode.Contains("SC"))
+    {
+        Session["RoleGroup"] = Session["RoleGroup"].ToString() + "/Sample Coordinator";
+    }
+    
+}
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@Page.Title - My ASP.NET Web Page</title>
-        <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+        <title>@Page.Title</title>
+
         <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
         <script src="~/Scripts/modernizr-2.6.2.js"></script>
         <meta name="viewport" content="width=device-width" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+        
+        <link href="~/Content/MyTouch.css" rel="stylesheet" />
+     
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+        @RenderSection("Scripts", required: false)
     </head>
     <body>
         <header>
             <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title"><a href="~/">your logo here</a></p>
+                <div class="logo-margin float-left">
+                    <p class="site-title"><a href="~/"><img class="site-logo" src="~/Images/jci-logo-top.png" /></a></p>
                 </div>
-                <div class="float-right">
+                <div>
                     <section id="login">
-                        @if (WebSecurity.IsAuthenticated) {
-                            <text>
-                                Hello, <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>!
-                                <form id="logoutForm" action="~/Account/Logout" method="post">
-                                    @AntiForgery.GetHtml()
-                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
-                                </form>
-                            </text>
-                        } else {
-                            <ul>
-                                <li><a href="~/Account/Register">Register</a></li>
-                                <li><a href="~/Account/Login">Log in</a></li>
-                            </ul>
-                        }
                     </section>
-                    <nav>
-                        <ul id="menu">
+                    <nav style="margin-left:200px;">
+                        <ul id="menu" class="nav nav-pills">
                             <li><a href="~/">Home</a></li>
-                            <li><a href="~/About">About</a></li>
-                            <li><a href="~/Contact">Contact</a></li>
+                            <li class="drowdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Design <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Design/NewDesign.cshtml">New Design</a></li>
+                                    <li><a href="~/Design/DesignList.cshtml">Design List</a></li>
+                                    <li><a href="#">Sample Order List</a></li>
+                                    <li><a href="#">Cost Analysis</a></li>
+                                    <li><span class="menu-divider"></span></li>
+                                    <li><a href="#">Sales Quote</a></li>
+                                    <li><a href="#">Sourcing</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Sample <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Work In List</a></li>
+                                    <li><a href="#">Test Report</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Production <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">MO Register</a></li>
+                                    <li><a href="#">Receiving</a></li>
+                                    <li><a href="#">Work In Process</a></li>
+                                    <li><a href="#">Shipping List</a></li>
+                                    <li><span class="menu-divider"></span></li>
+                                    <li><a href="#">Customer PO</a></li>
+                                    <li><a href="#">Sourcing</a></li>
+                                </ul>
+                            </li>
+                            @if(row.RoleGroupCode.Contains("AC") || row.RoleGroupCode.Contains("AL")) {
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Accounting <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Sample Invoice</a></li>
+                                    <li><a href="#">Invoice</a></li>
+                                </ul>
+                            </li>}
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Report <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Work In Process</a></li>
+                                    <li><a href="#">Work In Due</a></li>
+                                    <li><a href="#">Invoice Status</a></li>
+                                </ul>
+                            </li>
+                            @if (row.RoleGroupCode.Contains("AD") || row.RoleGroupCode.Contains("AL"))
+                            {
+                            <li class="dropdown pull-right">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Customer</a></li>
+                                    <li><a href="#">Divisions</a></li>
+                                    <li><a href="#">Employees</a></li>
+                                    <li><span class="menu-divider"></span></li>
+                                    <li><a href="#">Sourcing</a></li>
+                                </ul>
+                            </li>}
+                            @*<li><a href="~/Contact">Contact</a></li>*@
                         </ul>
+                        <div class="role-line" style="margin-top:-40px;margin-left:0px;">  </div>
+                        <div class="role-title" style="margin-left:0px;">
+                            @Session["UserName"].ToString() | @Session["RoleGroup"].ToString()
+                        </div>
                     </nav>
+
                 </div>
+                
             </div>
         </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET Web Page</p>
+        <div class="clear"></div>
+        <section class="container">
+            <div class="sidebar">
+                <h4>Favorite Menu</h4>
+                @*<span class="left-panel-divider"></span>*@
+                <span class="side-menu-gap"></span>
+                <a href="#">To-Do List</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="~/Design/NewDesign.cshtml">New Design</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="~/Design/DesignList.cshtml">Design List</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="#">Grahpic Art List</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="#">Sample Order List</a><br />
+                @*<span class="side-menu-gap"></span>
+                <a href="#">Design Search</a><br />*@
+                <span class="side-menu-gap"></span>
+                <a href="#">Sourcing</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="#">MO List</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="#">Shipping LIst</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="#">Work In Process</a><br />
+                <span class="side-menu-gap"></span>
+                <a href="#">Work In Due</a><br />
+                <span class="side-menu-gap"></span>
+            </div>
+            
+            <div class="content">
+                <div id="content-body">
+                    @RenderSection("featured", required: false)
+                    <section class="container">
+                        @RenderBody()
+                    </section>
                 </div>
             </div>
-        </footer>
-        @RenderSection("Scripts", required: false)
+        </section>
+        @*<footer>
+            <div class="clear content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year</p>
+                </div>
+            </div>
+        </footer>*@
+
     </body>
 </html>

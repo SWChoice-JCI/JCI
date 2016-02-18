@@ -1,0 +1,113 @@
+﻿body { 
+    width:1400px; 
+    margin:0px auto;
+    border-top: solid 0px #000;
+    color: #333;
+    font-size: 1.2em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    border-radius:10px;
+} 
+
+.dropdown-menu {
+    font-size:12px;
+}
+
+.header-margin{
+      margin-left:200px;
+
+      /*margin-right:100px;*/
+}
+
+.logo-margin{
+      margin-left:50px;
+      margin-top:10px;*/
+}
+
+.menu-divider {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin: -5px 0px;
+  overflow: hidden;
+  background-color: #dbd4d4;/*#e5e5e5;*/
+}
+
+div#left-panel {
+    width:200px;
+    height:800px;
+    margin:25px 5px 0px 0px;
+    padding:0px 5px 0px 20px;
+    background-color:white;
+    clear:left;
+}
+
+div#left-panel a{
+    text-decoration:none;
+}
+
+
+
+.left-panel-divider {
+    height: 1px;
+    width: 100%;
+    display: block; /* for use on default inline elements like span */
+    margin: 20px 0px;
+    overflow: hidden;
+    background-color: #808080;
+}
+
+.side-menu-gap{
+    height: 0px;
+    width: 100%;
+    display: block; /* for use on default inline elements like span */
+    margin: 8px;
+    overflow: hidden;
+    /*background-color: #fff;*/
+}
+
+
+.container {width:100%;}
+.content { width:1100px; height:auto; 
+           float:left; 
+           background-color:#efeeef;
+           margin-top:10px;
+           margin-bottom:10px;
+           /*margin-left:180px;*/
+           padding:10px;
+           border-radius:20px;
+} 
+.sidebar {width:170px; 
+          /*position:fixed;*/
+          height:auto; 
+          float:left; 
+          margin-left:20px;
+          margin-top:20px;
+}
+.header {
+    position:fixed;
+    height:auto;
+    background-color:white;
+}
+
+.footer { height:auto; }  
+.clear {clear:both;}
+
+.first-label {
+    text-align:right;
+    /*margin-left:20px;*/
+}
+
+.preview-img {
+    padding:4px;
+    margin:2px;
+}
+
+.page-title {
+    font-weight:800;
+    font-size:1.7em;
+    text-decoration:underline;
+    text-shadow:initial;
+    text-emphasis:double-circle;
+    padding-right:40px;
+    
+}
